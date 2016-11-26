@@ -4,7 +4,7 @@ import kbpgp from 'kbpgp'
 const importFromArmoredPgp = P.promisify(kbpgp.KeyManager.import_from_armored_pgp)
 const unbox = P.promisify(kbpgp.unbox)
 
-export async function load (user, message) {
+export async function verify (user, message) {
   try {
     const publicKey = await window.fetch(`https://keybase.io/${user}/key.asc`)
         .then((res) => res.text())
@@ -25,8 +25,8 @@ export async function load (user, message) {
     const signerKeyManager = signer.get_key_manager()
     const signatureFingerprint = signerKeyManager.get_pgp_fingerprint_str()
 
-    return Promise.resolve(fingerprint === signatureFingerprint)
+    return Promise.resolve({legit: fingerprint === signatureFingerprint, err: null})
   } catch (err) {
-    return Promise.reject(err)
+    return Promise.reject({legit: false, err: err})
   }
 }

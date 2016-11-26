@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { load } from './Encrypt'
+import { verify } from './Encrypt'
 import { signedMessage } from './Fixtures'
 
 class App extends Component {
   async componentWillMount () {
-    const isLegit = await load('jjperezaguinaga', signedMessage)
+    const isLegit = await verify('jjperezaguinaga', signedMessage)
     console.log('Are we legit?', isLegit)
   }
   render () {
