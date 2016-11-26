@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Api from './Api'
 import { PUBLIC_KEY_NOT_FOUND_ERROR } from './Errors'
-import { verify } from './Encrypt'
+import verify from 'keybase-verify'
 
 class App extends Component {
   componentDidUpdate () {
